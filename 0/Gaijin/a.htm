@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<script>
+                    parent.postMessage(JSON.stringify({
+            "action": "isAuth", "data": {
+                "sso-nick": "",
+                "sso-id": "",
+                "sso-subscriptions": {},
+                "status": 0
+            }
+        }), 'https://login.gaijin.net');
+            
+    window.addEventListener("message", function (event) {
+        try {
+            var data = JSON.parse(event.data);
+            if (data.action == 'location') {
+                if (data.location.toString().match(/^http[s]?:\/\/login\.gaijin\.net\/api\/auth\/menu/i)) {
+                    location.href = data.location;
+                }
+            }
+        }
+        catch (e) { }
+    });
+</script>
+
+</body></html>
